@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Readiness | Life Science AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+body{
+  min-height:100vh;
+  background:#ecfeff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
+}
+.app{
+  width:100%;
+  max-width:420px;
+  height:100vh;
+  max-height:800px;
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 0 20px rgba(0,0,0,0.1);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.header{
+  padding:12px 16px 16px;
+  background:linear-gradient(135deg,#0ea5e9,#14b8a6);
+  color:#fff;
+}
+.header-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.logo-wrap{
+  width:40px;
+  height:40px;
+  border-radius:999px;
+  overflow:hidden;
+  background:rgba(255,255,255,0.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.logo-wrap img{
+  max-width:36px;
+  max-height:36px;
+  display:block;
+}
+.header-text{
+  display:flex;
+  flex-direction:column;
+}
+.header-text h1{
+  font-size:18px;
+  font-weight:600;
+}
+.header-text span{
+  font-size:12px;
+  opacity:0.95;
+}
+.header-tagline{
+  font-size:11px;
+  margin-top:6px;
+  opacity:0.9;
+}
+.body{
+  flex:1;
+  padding:14px;
+  background:#f5f7f9;
+  overflow-y:scroll; /* always scroll */
+}
+.card{
+  background:#fff;
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+.label{
+  font-size:13px;
+  margin-bottom:4px;
+  color:#334155;
+  font-weight:500;
+}
+.small{
+  font-size:11px;
+  color:#6b7280;
+  margin-bottom:6px;
+}
+input,select,textarea{
+  width:100%;
+  padding:8px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  font-size:14px;
+  background:#f9fafb;
+}
+textarea{
+  min-height:60px;
+  max-height:150px;
+}
+.error{
+  color:#dc2626;
+  font-size:12px;
+  margin-top:4px;
+  display:none;
+}
+.footer{
+  padding:10px 14px;
+  background:#fff;
+  display:flex;
+  gap:10px;
+  border-top:1px solid #e2e8f0;
+}
+.btn{
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:30px;
+  font-size:14px;
+  font-weight:500;
+  cursor:pointer;
+}
+.primary{
+  background:linear-gradient(135deg,#0ea5e9,#14b8a6);
+  color:#fff;
+}
+.secondary{
+  background:#e5e7eb;
+  color:#374151;
+}
+.summary-box{
+  white-space:pre-wrap;
+  font-size:13px;
+  line-height:1.5;
+  background:#f1f5f9;
+  padding:10px;
+  border-radius:10px;
+  max-height:240px;
+  overflow-y:auto;
+  margin-top:8px;
+}
+.score{
+  font-weight:600;
+  margin-bottom:4px;
+}
+.level{
+  font-weight:700;
+  margin-bottom:6px;
+}
+.low{color:#b91c1c;}
+.early{color:#d97706;}
+.pilot{color:#15803d;}
+.advanced{color:#0f766e;}
+.hidden{display:none;}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="header-top">
+      <div class="logo-wrap">
+        <img src="lifescienceai-logo.png" alt="Life Science AI logo">
+      </div>
+      <div class="header-text">
+        <h1>AI Readiness</h1>
+        <span>Life Science AI</span>
+      </div>
+    </div>
+    <div class="header-tagline">
+      Partnering for safer, smarter and more connected care with AI.
+    </div>
+  </div>
+
+  <div class="body">
+    <!-- FORM SECTION -->
+    <div id="form-section">
+
+      <div class="card">
+        <div class="label">Clinic / Organisation *</div>
+        <input id="clinic">
+        <div id="errClinic" class="error">This field is required.</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Contact person</div>
+        <input id="contact">
+      </div>
+
+      <div class="card">
+        <div class="label">Contact email</div>
+        <input id="email">
+      </div>
+
+      <div class="card">
+        <div class="label"><strong>AI Readiness Questions (0–2)</strong></div>
+        <div class="small">0 = Not yet, 1 = In progress, 2 = In place.</div>
+
+        <div class="label">1. EHR use</div>
+        <select id="q1">
+          <option value="0">0 – Paper-based</option>
+          <option value="1">1 – Mixed</option>
+          <option value="2">2 – Fully digital</option>
+        </select>
+
+        <div class="label">2. Data privacy & security</div>
+        <select id="q2">
+          <option value="0">0 – Weak</option>
+          <option value="1">1 – Developing</option>
+          <option value="2">2 – Strong</option>
+        </select>
+
+        <div class="label">3. Clinical governance for digital/AI</div>
+        <select id="q3">
+          <option value="0">0 – None</option>
+          <option value="1">1 – Informal</option>
+          <option value="2">2 – Defined</option>
+        </select>
+
+        <div class="label">4. IT / technical support</div>
+        <select id="q4">
+          <option value="0">0 – Ad hoc</option>
+          <option value="1">1 – Basic</option>
+          <option value="2">2 – Strong</option>
+        </select>
+
+        <div class="label">5. AI use case clarity</div>
+        <select id="q5">
+          <option value="0">0 – None</option>
+          <option value="1">1 – Some ideas</option>
+          <option value="2">2 – Clear</option>
+        </select>
+
+        <div class="label">6. Data quality</div>
+        <select id="q6">
+          <option value="0">0 – Poor</option>
+          <option value="1">1 – Needs work</option>
+          <option value="2">2 – Good</option>
+        </select>
+
+        <div class="label">7. Staff AI/digital literacy</div>
+        <select id="q7">
+          <option value="0">0 – None</option>
+          <option value="1">1 – Some training</option>
+          <option value="2">2 – Good</option>
+        </select>
+
+        <div class="label">8. Budget for AI</div>
+        <select id="q8">
+          <option value="0">0 – None</option>
+          <option value="1">1 – Small</option>
+          <option value="2">2 – Clear</option>
+        </select>
+
+        <div class="label">9. Leadership support</div>
+        <select id="q9">
+          <option value="0">0 – Not engaged</option>
+          <option value="1">1 – Interested</option>
+          <option value="2">2 – Supportive</option>
+        </select>
+      </div>
+
+      <div class="card">
+        <div class="label">Notes</div>
+        <textarea id="notes"></textarea>
+      </div>
+
+    </div>
+
+    <!-- SUMMARY SECTION -->
+    <div id="summary-section" class="hidden">
+      <div class="card">
+        <div id="scoreText" class="score"></div>
+        <div id="levelText" class="level"></div>
+        <div id="summaryOutput" class="summary-box"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <button class="btn secondary" onclick="resetForm()">Clear</button>
+    <button class="btn primary" onclick="calculateReadiness()">Calculate</button>
+  </div>
+
+</div>
+
+<script>
+function getText(id){
+  var el = document.getElementById(id);
+  return el ? el.value.trim() : "";
+}
+
+function getNumber(id){
+  var el = document.getElementById(id);
+  if(!el) return 0;
+  var v = parseInt(el.value,10);
+  if(isNaN(v)) return 0;
+  return v;
+}
+
+function calculateReadiness(){
+  var clinic = getText("clinic");
+
+  // validate clinic name
+  if(!clinic){
+    document.getElementById("errClinic").style.display = "block";
+    // also scroll to top so user sees the error
+    document.querySelector(".body").scrollTop = 0;
+    return;
+  } else {
+    document.getElementById("errClinic").style.display = "none";
+  }
+
+  // compute score
+  var score =
+    getNumber("q1") + getNumber("q2") + getNumber("q3") +
+    getNumber("q4") + getNumber("q5") + getNumber("q6") +
+    getNumber("q7") + getNumber("q8") + getNumber("q9");
+
+  var level = "";
+  var cls = "";
+  var msg = "";
+
+  if(score <= 4){
+    level = "Not ready";
+    cls = "low";
+    msg = "- Focus on digital basics first (EHR, data, governance).\n- Build confidence with simple, low-risk tools.";
+  } else if(score <= 9){
+    level = "Early stage";
+    cls = "early";
+    msg = "- Strengthen foundations and staff training.\n- Clarify 1–2 high-value AI use cases.";
+  } else if(score <= 14){
+    level = "Ready for pilots";
+    cls = "pilot";
+    msg = "- Select 1–2 low-risk AI pilots with clear outcomes.\n- Put governance and evaluation in place.";
+  } else {
+    level = "Advanced";
+    cls = "advanced";
+    msg = "- You are well positioned to scale AI.\n- Develop a multi-year AI roadmap with ongoing monitoring.";
+  }
+  // --- TARGETED RECOMMENDATIONS BASED ON LOW SCORES ---
+  var weakAreas = [];
+
+  if(getNumber("q1") === 0) weakAreas.push("- Transition from paper-based records to digital EHR.");
+  if(getNumber("q2") <= 1) weakAreas.push("- Strengthen data privacy and security policies.");
+  if(getNumber("q3") <= 1) weakAreas.push("- Improve clinical governance for digital/AI oversight.");
+  if(getNumber("q4") <= 1) weakAreas.push("- Increase IT support availability and technical resources.");
+  if(getNumber("q5") <= 1) weakAreas.push("- Develop clearer and more specific AI use cases.");
+  if(getNumber("q6") <= 1) weakAreas.push("- Improve data quality and reduce missing/inconsistent data.");
+  if(getNumber("q7") <= 1) weakAreas.push("- Provide digital/AI literacy training for staff.");
+  if(getNumber("q8") <= 1) weakAreas.push("- Allocate budget to AI planning and implementation.");
+  if(getNumber("q9") <= 1) weakAreas.push("- Strengthen leadership alignment and commitment to AI.");
+
+  var tailored = weakAreas.length
+    ? "\n=== Tailored Recommendations ===\n" + weakAreas.join("\n")
+    : "";
+
+  var lines = [];
+  lines.push("=== Clinic Details ===");
+  lines.push("Clinic: " + clinic);
+  if(getText("contact")) lines.push("Contact: " + getText("contact"));
+  if(getText("email")) lines.push("Email: " + getText("email"));
+  lines.push(tailored);
+
+  lines.push("\n=== Interpretation ===");
+  if(level === "Not ready"){
+    lines.push("Your Organisation is still building foundational digital capabilities.");
+  }
+  else if(level === "Early stage"){
+    lines.push("You have some foundations in place but need clearer structures/data quality.");
+  }
+  else if(level === "Ready for pilots"){
+    lines.push("Your Organisation can safely begin piloting small AI solutions.");
+  }
+  else {
+    lines.push("You have strong digital maturity and can scale AI solutions.");
+  }
+
+  lines.push("\n=== Recommendations ===");
+  lines.push(msg);
+
+  if(getText("notes")){
+    lines.push("");
+    lines.push("Notes:");
+    lines.push(getText("notes"));
+  }
+  lines.push("");
+  lines.push("Next step: Book an AI strategy session with Life Science AI (connect@lifescienceai.com.au).");
+
+  document.getElementById("summaryOutput").textContent = lines.join("\n");
+  document.getElementById("scoreText").textContent = "Score: " + score + " / 18";
+
+  var levelEl = document.getElementById("levelText");
+  levelEl.textContent = level;
+  levelEl.className = "level " + cls;
+
+  // swap views
+  document.getElementById("form-section").classList.add("hidden");
+  document.getElementById("summary-section").classList.remove("hidden");
+}
+
+function resetForm(){
+  // easiest and safest reset: reload page
+  location.reload();
+}
+</script>
+
+</body>
+</html>
