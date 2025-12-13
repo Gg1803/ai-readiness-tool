@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Life Science AI – Client Discovery & AI Readiness Audit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f4f7fb;
+      color: #222;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      color: #12324a;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #4f5b66;
+      font-size: 0.95rem;
+    }
+
+    form {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    fieldset {
+      border: 1px solid #d7e2ee;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      padding: 16px 16px 12px;
+    }
+
+    legend {
+      padding: 0 6px;
+      font-weight: 600;
+      color: #12324a;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e0;
+      font-size: 0.95rem;
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .inline-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      margin-bottom: 10px;
+    }
+
+    .inline-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+
+    .inline-group input[type="checkbox"],
+    .inline-group input[type="radio"] {
+      margin: 0;
+    }
+
+    .section-note {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #0f8ba8;
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .btn-primary:hover {
+      background: #0b6f85;
+    }
+
+    .results {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+      display: none;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .badge-low {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .badge-early {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge-mid {
+      background: #d1fae5;
+      color: #064e3b;
+    }
+
+    .badge-high {
+      background: #e0f2fe;
+      color: #1d4ed8;
+    }
+
+    .score {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .score-sub {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 16px;
+    }
+
+    .results h3 {
+      margin-top: 12px;
+      margin-bottom: 4px;
+    }
+
+    .results ul {
+      margin-top: 4px;
+    }
+
+    .small {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 600px) {
+      form {
+        padding: 16px;
+      }
+      fieldset {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Life Science AI</h1>
+    <div class="subtitle">
+      Client Discovery &amp; AI Readiness Audit<br />
+      <span style="font-size:0.85rem;">Bridging data, people &amp; wellbeing</span>
+    </div>
+
+    <form id="auditForm">
+      <!-- 1. Organisation Details -->
+      <fieldset>
+        <legend>1. Organisation Details</legend>
+
+        <label for="orgName">Organisation name</label>
+        <input type="text" id="orgName" name="orgName" />
+
+        <label for="primaryContact">Primary contact person</label>
+        <input type="text" id="primaryContact" name="primaryContact" />
+
+        <label for="role">Role/Position</label>
+        <input type="text" id="role" name="role" />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" />
+
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" />
+
+        <label>Industry sector</label>
+        <div class="inline-group">
+          <label><input type="radio" name="industry" value="Healthcare" /> Healthcare</label>
+          <label><input type="radio" name="industry" value="Education" /> Education</label>
+          <label><input type="radio" name="industry" value="Government" /> Government</label>
+          <label><input type="radio" name="industry" value="SME" /> SME</label>
+          <label><input type="radio" name="industry" value="Enterprise" /> Enterprise</label>
+          <label><input type="radio" name="industry" value="Other" /> Other</label>
+        </div>
+        <input type="text" id="industryOther" name="industryOther" placeholder="If other, please specify" />
+
+        <label>Number of staff</label>
+        <div class="inline-group">
+          <label><input type="radio" name="staffCount" value="1–10" /> 1–10</label>
+          <label><input type="radio" name="staffCount" value="11–50" /> 11–50</label>
+          <label><input type="radio" name="staffCount" value="51–200" /> 51–200</label>
+          <label><input type="radio" name="staffCount" value="200+" /> 200+</label>
+        </div>
+
+        <label for="locations">Location(s) of operation</label>
+        <textarea id="locations" name="locations" placeholder="e.g., Perth metro, regional WA, national, international"></textarea>
+      </fieldset>
+
+      <!-- 2. Current Digital & Data Maturity -->
+      <fieldset>
+        <legend>2. Current Digital &amp; Data Maturity</legend>
+
+        <label>How would you describe your current level of digital maturity?</label>
+        <div class="inline-group">
+          <label><input type="radio" name="digitalMaturity" value="Very basic" /> Very basic</label>
+          <label><input type="radio" name="digitalMaturity" value="Developing" /> Developing</label>
+          <label><input type="radio" name="digitalMaturity" value="Moderate" /> Moderate</label>
+          <label><input type="radio" name="digitalMaturity" value="Advanced" /> Advanced</label>
+          <label><input type="radio" name="digitalMaturity" value="Highly advanced" /> Highly advanced</label>
+        </div>
+
+        <label>What systems do you currently use? (Tick all that apply)</label>
+        <div class="inline-group">
+          <label><input type="checkbox" name="systems" value="CRM" /> CRM</label>
+          <label><input type="checkbox" name="systems" value="Practice Management System" /> Practice Management System</label>
+          <label><input type="checkbox" name="systems" value="Accounting Software" /> Accounting Software</label>
+          <label><input type="checkbox" name="systems" value="Data Analytics Tools" /> Data Analytics Tools</label>
+          <label><input type="checkbox" name="systems" value="Automation Tools" /> Automation Tools</label>
+          <label><input type="checkbox" name="systems" value="None / Unsure" /> None / Unsure</label>
+        </div>
+
+        <label>Do you currently collect and store data digitally?</label>
+        <div class="inline-group">
+          <label><input type="radio" name="dataDigital" value="Yes" /> Yes</label>
+          <label><input type="radio" name="dataDigital" value="No" /> No</label>
+          <label><input type="radio" name="dataDigital" value="Partially" /> Partially</label>
+        </div>
+
+        <label for="dataOwner">Who is responsible for data management in your organisation?</label>
+        <input type="text" id="dataOwner" name="dataOwner" placeholder="e.g., CIO, Practice Manager, external IT provider" />
+      </fieldset>
+
+      <!-- 3. AI Awareness & Usage -->
+      <fieldset>
+        <legend>3. AI Awareness &amp; Usage</legend>
+
+        <label>Have you used any AI tools before?</label>
+        <div class="inline-group">
+          <label><input type="radio" name="aiUsedBefore" value="Yes" /> Yes</label>
+          <label><input type="radio" name="aiUsedBefore" value="No" /> No</label>
+        </div>
+
+        <label>If yes, which tools?</label>
+        <div class="inline-group">
+          <label><input type="checkbox" name="aiTools" value="ChatGPT" /> ChatGPT</label>
+          <label><input type="checkbox" name="aiTools" value="Microsoft Copilot" /> Microsoft Copilot</label>
+          <label><input type="checkbox" name="aiTools" value="Automation tools" /> Automation tools</label>
+          <label><input type="checkbox" name="aiTools" value="Marketing AI" /> Marketing AI</label>
+          <label><input type="checkbox" name="aiTools" value="Clinical AI" /> Clinical AI</label>
+          <label><input type="checkbox" name="aiTools" value="Analytics AI" /> Analytics AI</label>
+          <label><input type="checkbox" name="aiTools" value="Other" /> Other</label>
+        </div>
+        <input type="text" id="aiToolsOther" name="aiToolsOther" placeholder="If other, please specify" />
+
+        <label>What do you currently use AI for (if applicable)?</label>
+        <div class="inline-group">
+          <label><input type="checkbox" name="aiUsageAreas" value="Administration" /> Administration</label>
+          <label><input type="checkbox" name="aiUsageAreas" value="Marketing" /> Marketing</label>
+          <label><input type="checkbox" name="aiUsageAreas" value="Operations" /> Operations</label>
+          <label><input type="checkbox" name="aiUsageAreas" value="Clinical/Service Delivery" /> Clinical/Service Delivery</label>
+          <label><input type="checkbox" name="aiUsageAreas" value="Research & Analytics" /> Research &amp; Analytics</label>
+          <label><input type="checkbox" name="aiUsageAreas" value="Not using AI yet" /> Not using AI yet</label>
+        </div>
+      </fieldset>
+
+      <!-- 4. Business Challenges -->
+      <fieldset>
+        <legend>4. Business Challenges</legend>
+
+        <label for="topChallenges">What are your top 3 operational challenges right now?</label>
+        <textarea id="topChallenges" name="topChallenges" placeholder="Free text – challenges, bottlenecks, risks"></textarea>
+
+        <label>Where do you experience the biggest inefficiencies?</label>
+        <div class="inline-group">
+          <label><input type="checkbox" name="inefficiencies" value="Admin" /> Admin</label>
+          <label><input type="checkbox" name="inefficiencies" value="Staffing" /> Staffing</label>
+          <label><input type="checkbox" name="inefficiencies" value="Client management" /> Client management</label>
+          <label><input type="checkbox" name="inefficiencies" value="Data handling" /> Data handling</label>
+          <label><input type="checkbox" name="inefficiencies" value="Reporting" /> Reporting</label>
+          <label><input type="checkbox" name="inefficiencies" value="Compliance" /> Compliance</label>
+          <label><input type="checkbox" name="inefficiencies" value="Communication" /> Communication</label>
+        </div>
+
+        <label>Are any of the following impacting your organisation?</label>
+        <div class="inline-group">
+          <label><input type="checkbox" name="impacts" value="Workforce shortages" /> Workforce shortages</label>
+          <label><input type="checkbox" name="impacts" value="Burnout" /> Burnout</label>
+          <label><input type="checkbox" name="impacts" value="Data overload" /> Data overload</label>
+          <label><input type="checkbox" name="impacts" value="Manual processes" /> Manual processes</label>
+          <label><input type="checkbox" name="impacts" value="Compliance pressure" /> Compliance pressure</label>
+          <label><input type="checkbox" name="impacts" value="Limited digital skills" /> Limited digital skills</label>
+        </div>
+      </fieldset>
+
+      <!-- 5. Goals for AI & Automation -->
+      <fieldset>
+        <legend>5. Goals for AI &amp; Automation</legend>
+
+        <label>What would you like AI to help you achieve? (Tick all that apply)</label>
+        <div class="inline-group">
+          <label><input type="checkbox" name="aiGoals" value="Save time" /> Save time</label>
+          <label><input type="checkbox" name="aiGoals" value="Reduce costs" /> Reduce costs</label>
+          <label><input type="checkbox" name="aiGoals" value="Improve service quality" /> Improve service quality</label>
+          <label><input type="checkbox" name="aiGoals" value="Improve decision-making" /> Improve decision-making</label>
+          <label><input type="checkbox" name="aiGoals" value="Increase revenue" /> Increase revenue</label>
+          <label><input type="checkbox" name="aiGoals" value="Improve staff wellbeing" /> Improve staff wellbeing</label>
+        </div>
+
+        <label for="successDefinition">What would success look like in 6–12 months after AI implementation?</label>
+        <textarea id="successDefinition" name="successDefinition" placeholder="e.g., time saved, fewer errors, better patient outcomes, staff satisfaction"></textarea>
+
+        <label>What is your biggest concern about AI adoption?</label>
+        <div class="inline-group">
+          <label><input type="radio" name="aiConcern" value="Cost" /> Cost</label>
+          <label><input type="radio" name="aiConcern" value="Data security" /> Data security</label>
+          <label><input type="radio" name="aiConcern" value="Staff resistance" /> Staff resistance</label>
+          <label><input type="radio" name="aiConcern" value="Ethics" /> Ethics</label>
+          <label><input type="radio" name="aiConcern" value="Reliability" /> Reliability</label>
+          <label><input type="radio" name="aiConcern" value="Compliance" /> Compliance</label>
+        </div>
+      </fieldset>
+
+      <!-- 6. Training & Change Readiness -->
+      <fieldset>
+        <legend>6. Training &amp; Change Readiness</legend>
+
+        <label>Are your staff open to learning new technologies?</label>
+        <div class="inline-group">
+          <label><input type="radio" name="staffOpenness" value="Very open" /> Very open</label>
+          <label><input type="radio" name="staffOpenness" value="Somewhat open" /> Somewhat open</label>
+          <label><input type="radio" name="staffOpenness" value="Resistant" /> Resistant</label>
+          <label><input type="radio" name="staffOpenness" value="Unsure" /> Unsure</label>
+        </div>
+
+        <label>Would you be interested in:</label>
+        <div class="inline-group">
+          <label><input type="checkbox" name="trainingInterest" value="AI literacy training" /> AI literacy training</label>
+          <label><input type="checkbox" name="trainingInterest" value="Leadership AI training" /> Leadership AI training</label>
+          <label><input type="checkbox" name="trainingInterest" value="Staff workshops" /> Staff workshops</label>
+          <label><input type="checkbox" name="trainingInterest" value="Ongoing AI support & maintenance" /> Ongoing AI support &amp; maintenance</label>
+        </div>
+
+        <label>Preferred training format:</label>
+        <div class="inline-group">
+          <label><input type="radio" name="trainingFormat" value="In-person" /> In-person</label>
+          <label><input type="radio" name="trainingFormat" value="Online" /> Online</label>
+          <label><input type="radio" name="trainingFormat" value="Hybrid" /> Hybrid</label>
+        </div>
+      </fieldset>
+
+      <!-- 7. Data Governance & Compliance -->
+      <fieldset>
+        <legend>7. Data Governance &amp; Compliance</legend>
+
+        <label>Do you currently have:</label>
+        <div class="inline-group">
+          <label><input type="checkbox" name="governance" value="Privacy Policy" /> Privacy Policy</label>
+          <label><input type="checkbox" name="governance" value="Cybersecurity framework" /> Cybersecurity framework</label>
+          <label><input type="checkbox" name="governance" value="Data governance policy" /> Data governance policy</label>
+          <label><input type="checkbox" name="governance" value="None of the above" /> None of the above</label>
+        </div>
+
+        <label>Are you required to comply with any of the following?</label>
+        <div class="inline-group">
+          <label><input type="checkbox" name="compliance" value="Australian Privacy Act" /> Australian Privacy Act</label>
+          <label><input type="checkbox" name="compliance" value="HIPAA" /> HIPAA</label>
+          <label><input type="checkbox" name="compliance" value="SOC2" /> SOC2</label>
+          <label><input type="checkbox" name="compliance" value="ISO" /> ISO</label>
+          <label><input type="checkbox" name="compliance" value="Other" /> Other</label>
+        </div>
+        <input type="text" id="complianceOther" name="complianceOther" placeholder="If other, please specify" />
+      </fieldset>
+
+      <!-- 8. Budget & Timeframe (Optional) -->
+      <fieldset>
+        <legend>8. Budget &amp; Timeframe (Optional)</legend>
+
+        <label>Do you have a budget allocated for digital or AI transformation?</label>
+        <div class="inline-group">
+          <label><input type="radio" name="budgetAllocated" value="Yes" /> Yes</label>
+          <label><input type="radio" name="budgetAllocated" value="No" /> No</label>
+          <label><input type="radio" name="budgetAllocated" value="Under review" /> Under review</label>
+        </div>
+
+        <label for="budgetRange">Estimated range (optional)</label>
+        <input type="text" id="budgetRange" name="budgetRange" placeholder="$ e.g. 10,000 – 50,000" />
+
+        <label>Desired timeframe to start:</label>
+        <div class="inline-group">
+          <label><input type="radio" name="timeframe" value="Immediately" /> Immediately</label>
+          <label><input type="radio" name="timeframe" value="1–3 months" /> 1–3 months</label>
+          <label><input type="radio" name="timeframe" value="3–6 months" /> 3–6 months</label>
+          <label><input type="radio" name="timeframe" value="6–12 months" /> 6–12 months</label>
+        </div>
+      </fieldset>
+
+      <!-- 9. Engagement Preferences -->
+      <fieldset>
+        <legend>9. Engagement Preferences</legend>
+
+        <label>What type of support are you most interested in?</label>
+        <div class="inline-group">
+          <label><input type="radio" name="engagementType" value="Strategy only" /> Strategy only</label>
+          <label><input type="radio" name="engagementType" value="Full implementation" /> Full implementation</label>
+          <label><input type="radio" name="engagementType" value="Training only" /> Training only</label>
+          <label><input type="radio" name="engagementType" value="Ongoing AI support & optimisation" /> Ongoing AI support &amp; optimisation</label>
+        </div>
+
+        <label for="howHeard">How did you hear about Life Science AI?</label>
+        <input type="text" id="howHeard" name="howHeard" placeholder="Referral, LinkedIn, event, website, etc." />
+      </fieldset>
+
+      <!-- 10. Final Comments -->
+      <fieldset>
+        <legend>10. Final Comments</legend>
+
+        <label for="finalComments">Is there anything else you would like us to know?</label>
+        <textarea id="finalComments" name="finalComments"></textarea>
+      </fieldset>
+
+      <button type="submit" class="btn-primary">Run AI Readiness Audit</button>
+      <div class="section-note">
+        This does not replace a full technical assessment, but gives a quick overview for discovery sessions.
+      </div>
+    </form>
+
+    <!-- RESULTS PANEL -->
+    <div id="results" class="results">
+      <div id="badgeContainer"></div>
+      <div class="score" id="scoreText"></div>
+      <div class="score-sub" id="scoreSub"></div>
+
+      <h3>Quick Interpretation</h3>
+      <p id="interpretation"></p>
+
+      <h3>Key Signals Detected</h3>
+      <ul id="signals"></ul>
+
+      <h3>Suggested Next Step with Life Science AI</h3>
+      <p id="nextStep"></p>
+
+      <div class="small">
+        This AI readiness score is indicative only and should be interpreted together with context from your discovery conversation.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Helper: get selected value for radio group
+    function getRadioValue(name) {
+      const el = document.querySelector('input[name="' + name + '"]:checked');
+      return el ? el.value : null;
+    }
+
+    // Helper: get all checked values for a checkbox group
+    function getCheckboxValues(name) {
+      return Array.from(
+        document.querySelectorAll('input[name="' + name + '"]:checked')
+      ).map((el) => el.value);
+    }
+
+    document.getElementById("auditForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // --- READ VALUES ---
+      const industry = getRadioValue("industry");
+      const isHealthcare = industry === "Healthcare";
+
+      const dm = getRadioValue("digitalMaturity");
+      const systems = getCheckboxValues("systems");
+      const dataDigital = getRadioValue("dataDigital");
+      const aiUsedBefore = getRadioValue("aiUsedBefore");
+      const aiUsageAreas = getCheckboxValues("aiUsageAreas");
+      const staffOpenness = getRadioValue("staffOpenness");
+      const governanceVals = getCheckboxValues("governance");
+      const budget = getRadioValue("budgetAllocated");
+      const timeframe = getRadioValue("timeframe");
+      const impacts = getCheckboxValues("impacts");
+      const aiGoals = getCheckboxValues("aiGoals");
+      const complianceVals = getCheckboxValues("compliance");
+
+      // --- COMPONENT SCORES ---
+
+      // Digital maturity (0–4)
+      let digitalScore = 0;
+      if (dm === "Very basic") digitalScore = 0;
+      else if (dm === "Developing") digitalScore = 1;
+      else if (dm === "Moderate") digitalScore = 2;
+      else if (dm === "Advanced") digitalScore = 3;
+      else if (dm === "Highly advanced") digitalScore = 4;
+
+      // Systems used
+      let systemsScore = 0;
+      if (!systems.includes("None / Unsure")) {
+        const counted = systems.filter((v) =>
+          ["CRM", "Practice Management System", "Accounting Software", "Data Analytics Tools", "Automation Tools"].includes(v)
+        ).length;
+        systemsScore = Math.min(counted, 4); // cap at 4
+      }
+
+      // Data digital – heavier for healthcare
+      let dataDigitalScore = 0;
+      if (dataDigital === "Yes") {
+        dataDigitalScore = isHealthcare ? 5 : 3;
+      } else if (dataDigital === "Partially") {
+        dataDigitalScore = isHealthcare ? 2 : 1;
+      } // No = 0
+
+      // AI usage – slightly heavier for healthcare
+      let aiScore = 0;
+      if (aiUsedBefore === "Yes") {
+        aiScore += 2; // base for any AI use
+
+        const usageCount = aiUsageAreas.includes("Not using AI yet")
+          ? 0
+          : aiUsageAreas.length;
+
+        if (isHealthcare) {
+          aiScore += Math.min(usageCount, 4); // cap 4 -> max 6 total
+        } else {
+          aiScore += Math.min(usageCount, 3); // cap 3 -> max 5 total
+        }
+      }
+
+      // Staff openness (0–4)
+      let staffScore = 0;
+      if (staffOpenness === "Very open") staffScore = 4;
+      else if (staffOpenness === "Somewhat open") staffScore = 2;
+      else if (staffOpenness === "Unsure") staffScore = 1;
+      // Resistant = 0
+
+      // Governance – doubled weight for healthcare
+      let rawGovernanceCount = 0;
+      if (!governanceVals.includes("None of the above")) {
+        rawGovernanceCount = governanceVals.filter((v) =>
+          ["Privacy Policy", "Cybersecurity framework", "Data governance policy"].includes(v)
+        ).length;
+      }
+      let governanceScore = 0;
+      if (isHealthcare) {
+        governanceScore = Math.min(rawGovernanceCount * 2, 6); // up to 6
+      } else {
+        governanceScore = Math.min(rawGovernanceCount, 3); // up to 3
+      }
+
+      // Budget allocated (0–3)
+      let budgetScore = 0;
+      if (budget === "Yes") budgetScore = 3;
+      else if (budget === "Under review") budgetScore = 1;
+
+      // Timeframe (0–3)
+      let timeframeScore = 0;
+      if (timeframe === "Immediately") timeframeScore = 3;
+      else if (timeframe === "1–3 months") timeframeScore = 2;
+      else if (timeframe === "3–6 months") timeframeScore = 1;
+      // 6–12 months = 0
+
+      // Compliance – only scored for healthcare (0–2)
+      let complianceScore = 0;
+      if (isHealthcare) {
+        if (complianceVals.includes("Australian Privacy Act")) complianceScore += 1;
+        if (
+          complianceVals.includes("HIPAA") ||
+          complianceVals.includes("SOC2") ||
+          complianceVals.includes("ISO")
+        ) {
+          complianceScore += 1;
+        }
+        if (complianceScore > 2) complianceScore = 2;
+      }
+
+      // --- TOTAL SCORE & MAX ---
+      let score = 0;
+      let maxScore = 0;
+
+      if (isHealthcare) {
+        // Max approx: 4+4+5+6+4+6+3+3+2 = 37
+        score =
+          digitalScore +
+          systemsScore +
+          dataDigitalScore +
+          aiScore +
+          staffScore +
+          governanceScore +
+          budgetScore +
+          timeframeScore +
+          complianceScore;
+        maxScore = 37;
+      } else {
+        // Original-style weighting: 4+4+3+5+4+3+3+3 = 29
+        score =
+          digitalScore +
+          systemsScore +
+          dataDigitalScore +
+          aiScore +
+          staffScore +
+          governanceScore +
+          budgetScore +
+          timeframeScore;
+        maxScore = 29;
+      }
+
+      const readinessPercent = maxScore
+        ? Math.round((score / maxScore) * 100)
+        : 0;
+
+      // --- BAND & TEXT ---
+      let band = "";
+      let bandText = "";
+      let badgeClass = "";
+
+      if (readinessPercent <= 20) {
+        band = "Foundational";
+        bandText = "Not AI-ready yet – focus on digital basics and data foundations.";
+        badgeClass = "badge badge-low";
+      } else if (readinessPercent <= 50) {
+        band = "Early";
+        bandText = "Emerging AI potential – start with strategy, governance and small pilots.";
+        badgeClass = "badge badge-early";
+      } else if (readinessPercent <= 75) {
+        band = "Developing";
+        bandText = "Good AI readiness – ready for targeted AI use cases and workflows.";
+        badgeClass = "badge badge-mid";
+      } else {
+        band = "Mature";
+        bandText = "High AI readiness – ready to scale AI and optimise across the organisation.";
+        badgeClass = "badge badge-high";
+      }
+
+      const orgName = document.getElementById("orgName").value || "This organisation";
+      const sectorNote = isHealthcare
+        ? " (healthcare-weighted scoring applied)."
+        : ".";
+
+      document.getElementById("badgeContainer").innerHTML =
+        '<span class="' + badgeClass + '">AI Readiness: ' + band + "</span>";
+
+      document.getElementById("scoreText").textContent =
+        readinessPercent + "% readiness score";
+
+      document.getElementById("scoreSub").textContent =
+        orgName +
+        " has an indicative AI readiness score of " +
+        readinessPercent +
+        "% (out of 100)" +
+        sectorNote;
+
+      document.getElementById("interpretation").textContent = bandText;
+
+      // --- KEY SIGNALS ---
+      const signalsEl = document.getElementById("signals");
+      signalsEl.innerHTML = "";
+      const addSignal = (txt) => {
+        const li = document.createElement("li");
+        li.textContent = txt;
+        signalsEl.appendChild(li);
+      };
+
+      // Systems
+      if (!systems.length || systems.includes("None / Unsure")) {
+        addSignal("Limited core systems in place – foundational digital tools may be required.");
+      } else if (systemsScore >= 3) {
+        addSignal("Multiple systems already in use – good foundation for data-driven AI projects.");
+      }
+
+      // Data digital
+      if (dataDigital === "No") {
+        addSignal("Data is not yet collected digitally – a key blocker for AI projects.");
+      } else if (dataDigital === "Partially") {
+        addSignal("Data is partially digital – data consolidation and quality will be important.");
+      } else if (dataDigital === "Yes") {
+        addSignal("Data is already digital – positive signal for AI feasibility.");
+      }
+
+      // AI tools
+      if (aiUsedBefore === "No") {
+        addSignal("No AI tools used yet – strong opportunity for introductory AI literacy and pilot use cases.");
+      } else {
+        addSignal("AI tools are already in use – focus on structure, governance and scaling effective use cases.");
+      }
+
+      // Staff openness
+      if (staffOpenness === "Resistant") {
+        addSignal("Staff resistance to new technologies – change management and leadership engagement critical.");
+      } else if (staffOpenness === "Very open" || staffOpenness === "Somewhat open") {
+        addSignal("Staff appear open to learning new technologies – strong enabler for AI adoption.");
+      }
+
+      // Governance
+      if (governanceVals.includes("None of the above") || governanceVals.length === 0) {
+        addSignal("No formal privacy, cybersecurity or data governance documented – governance should be prioritised early.");
+      } else {
+        addSignal("Some governance elements are in place – these can be extended for AI-specific controls.");
+      }
+
+      // Budget
+      if (!budget || budget === "No") {
+        addSignal("No dedicated budget yet – may slow down implementation until investment is confirmed.");
+      } else {
+        addSignal("Budget consideration for AI/digital transformation already underway.");
+      }
+
+      // Compliance (only mentioned if relevant)
+      if (isHealthcare && complianceVals.length > 0) {
+        addSignal(
+          "Regulatory landscape includes: " + complianceVals.join(", ") +
+          " – AI design should align with these frameworks from the outset."
+        );
+      }
+
+      // Impacts
+      if (impacts.length > 0) {
+        addSignal(
+          "Key pressures identified: " +
+            impacts.join(", ") +
+            " – AI solutions can be mapped directly to these pain points."
+        );
+      }
+
+      // Goals
+      if (aiGoals.length > 0) {
+        addSignal("AI goals include: " + aiGoals.join(", ") + ".");
+      }
+
+      // --- SUGGESTED NEXT STEP ---
+      let nextStep = "";
+      if (readinessPercent <= 20) {
+        nextStep =
+          "Start with a Digital & Data Foundations engagement: map your systems, data flows and governance, then design a simple AI roadmap.";
+      } else if (readinessPercent <= 50) {
+        nextStep =
+          "Begin with an AI Strategy & Pilot Design workshop: prioritise 1–2 high-impact use cases (e.g., admin, reporting, triage) and run a safe pilot.";
+      } else if (readinessPercent <= 75) {
+        nextStep =
+          "Move into AI implementation for selected workflows (e.g., automation, analytics) supported by staff training and change management.";
+      } else {
+        nextStep =
+          "Focus on scaling successful AI use cases, advanced analytics, and continuous improvement with monitoring, governance and optimisation.";
+      }
+      document.getElementById("nextStep").textContent = nextStep;
+
+      // Show results panel
+      const results = document.getElementById("results");
+      results.style.display = "block";
+      results.scrollIntoView({ behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
