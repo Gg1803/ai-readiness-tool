@@ -9,6 +9,19 @@
       box-sizing: border-box;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
+    
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .logo-wrap img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
 
     body {
       margin: 0;
@@ -205,8 +218,13 @@
 </head>
 <body>
   <div class="container">
+    <div class="logo-wrap">
+      <img src="logo.jpeg?v=2" alt="Life Science AI logo">
+    </div>
+
     <h1>Life Science AI</h1>
     <div class="subtitle">
+
       Client Discovery &amp; AI Readiness Audit<br />
       <span style="font-size:0.85rem;">Bridging data, people &amp; wellbeing</span>
     </div>
